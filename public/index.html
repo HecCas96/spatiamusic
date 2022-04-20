@@ -7,11 +7,23 @@
     <title>Spatially Immersive Musive Experience</title>
 
     <script src="https://cdn.plot.ly/plotly-2.11.1.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/howler@2.2.3/dist/howler.min.js" integrity="sha256-D+v9meJzO2kOysLcNsgohfWBprXHO2WJWJj/hUhBX1s=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./index.css">
 </head>
 <body>
     <div id="main-screen">
+        <div class="wrapper">
+            <a href="#" title="Habilitar Audio" id="enable-audio">
+               <span class="audio-label">
+                  <span>
+                     Empezar
+                     <small>Audio</small>
+                  </span>
+               </span>
+               <span class="play"></span>
+               <span class="pause"></span>
+            </a>
+         </div>
         <div id="spatial-plot"></div>
         <h1 id="plotly_coords">Coordinadas</h1>
     </div>

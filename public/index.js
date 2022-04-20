@@ -177,6 +177,11 @@ function generatePlotlyAnnotation(point, name){
         yref: 'y',
         text: name,
         showarrow: false,
+        font: {
+            family: '"Open Sans", verdana, arial, sans-serif',
+            size: 12,
+            color: '#000000ff'
+        }
         // arrowhead: 7,
         // ax: 0,
         // ay: -40
@@ -231,7 +236,12 @@ function loadPlot(){
         showlegend: false,
         shapes: [...plotly_regions],
         annotations: [...plotly_regions_annotations],
-        "hovermode":"closest",
+        paper_bgcolor:"#FFF0",
+        font: {
+            family: 'monospace',
+            size: 16,
+            color: '#ffffffff'
+        }
       };
       
     var data = [];
@@ -247,10 +257,56 @@ function loadPlot(){
         addPlotlyCoordsHoverListener(plotEl);
     })
 }
+let sounds_inited = false;
+function startSounds(){
+    if(!sounds_inited){
+        var track1 = new Howl({
+            src: ['./media/tracks/A.mp3'],
+            autoplay: true,
+            loop: true,
+            volume: 0.5,
+            onend: function() {
+                console.log('Finished!');
+            }
+        });
+        var track2 = new Howl({
+            src: ['./media/tracks/a_prima.mp3'],
+            autoplay: true,
+            loop: true,
+            volume: 0.5,
+            onend: function() {
+                console.log('Finished!');
+            }
+        });
+        track1.play();
+        track2.play();
+        sounds_inited = true;
+    }else{
+        Howler.mute(false);
+    }
+}
 
+function startAnimatedBtn(){
+    let enable_audio_btn = document.querySelector("#enable-audio");
+
+
+    enable_audio_btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!enable_audio_btn.classList.contains("playing")) {
+            enable_audio_btn.classList.add('playing');
+            startSounds();
+            return false;
+        }else{
+            Howler.mute(true);
+            enable_audio_btn.classList.remove('playing');
+        }
+        return false;
+    });
+}
 
 function init() {
     plotly_coords_header = document.getElementById("plotly_coords");
     loadPlot();
+    startAnimatedBtn();
 }
 init();
